@@ -1,0 +1,39 @@
+import cosas2.*
+import camion2.*
+
+test "total de bultos del camión con 4 cosas" {
+  // Setup
+  bumblebee.transformarse()
+  arenaGranel.peso(150)
+  bateriaAntiaerea.sacarMisiles()
+  ladrillos.cantidad(80)
+  embalaje.envolver(ladrillos)
+
+  camion.cargar(bumblebee)          // 2 bultos
+  camion.cargar(arenaGranel)        // 1 bulto
+  camion.cargar(bateriaAntiaerea)   // al reaccionar pone misiles → 2 bultos
+  camion.cargar(embalaje)           // 2 bultos
+
+  assert.equals(7, camion.totalBultos())
+}
+
+test "al cargar ladrillos se agregan 12" {
+  ladrillos.cantidad(80)
+  camion.cargar(ladrillos) // reacciona: +12
+
+  assert.equals(92, ladrillos.cantidad())
+}
+
+test "al cargar arena granel pierde 10kg" {
+  arenaGranel.peso(150)
+  camion.cargar(arenaGranel)
+
+  assert.equals(140, arenaGranel.peso())
+}
+
+test "al cargar residuos radioactivos aumenta 15kg" {
+  residuosRadioactivos.peso(20)
+  camion.cargar(residuosRadioactivos)
+
+  assert.equals(35, residuosRadioactivos.peso())
+}

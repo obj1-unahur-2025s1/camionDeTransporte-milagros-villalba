@@ -1,9 +1,41 @@
 import cosas.*
 
 describe "group of test for cosas" {
+test "peso y peligrosidad del paquete de ladrillos con 80 unidades" {
+  ladrillos.establecerCantidad(80)
+  assert.equals(160, ladrillos.peso())
+  assert.equals(2, ladrillos.peligrosidad())
+}
 
-  test "first test" {
-    assert.that(true)
-  }
+test "peso y peligrosidad de la batería antiaérea con misiles" {
+  bateriaAntiaerea.ponerMisiles()
+  assert.equals(300, bateriaAntiaerea.peso())
+  assert.equals(100, bateriaAntiaerea.peligrosidad())
+}
+
+test "peso del contenedor con 2 cosas adentro" {
+  contenedor.limpiar()  // Limpio por si hay cosas de otros tests
+  ladrillos.establecerCantidad(80)         // importante
+  bateriaAntiaerea.ponerMisiles()         // importante
+  contenedor.agregarCosa(ladrillos)         // ladrillos de 80 → 160 kg, peligro 2
+  contenedor.agregarCosa(bateriaAntiaerea)  // 300 kg, peligro 100
+  assert.equals(100 + 160 + 300, contenedor.peso())
+}
+test "peligrosidad del contenedor con 2 cosas adentro" {
+  contenedor.limpiar()  // Limpio por si hay cosas de otros tests
+  ladrillos.establecerCantidad(80)         // importante
+  bateriaAntiaerea.ponerMisiles()         // importante
+  contenedor.agregarCosa(ladrillos)         // ladrillos de 80 → 160 kg, peligro 2
+  contenedor.agregarCosa(bateriaAntiaerea)  // 300 kg, peligro 100
+  assert.equals(100, contenedor.peligrosidad())  // el más peligroso
+}
+
+
+test "peso y peligrosidad del embalaje con residuos radioactivos de 30kg" {
+  residuosRadioactivos.peso(30)
+  embalaje.envolver(residuosRadioactivos)
+  assert.equals(30, embalaje.peso())
+  assert.equals(100, embalaje.peligrosidad())  // 200 / 2
+}
 
 }

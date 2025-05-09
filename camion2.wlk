@@ -3,6 +3,7 @@ object camion {
   const cosas = []
 
   method cargar(unaCosa) {
+    unaCosa.reaccionar()
     cosas.add(unaCosa)
   }
 
@@ -34,5 +35,7 @@ object camion {
   method tieneAlgoQuePesaEntre(min,max) = cosas.any({e=>e.peso().between(min, max)})
   
   method cosaMasPesada() = cosas.max({c => c.peso()})
-
+  
+  method totalBultos() = cosas.sum({c => c.bultos()})
 }
+

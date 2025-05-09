@@ -1,9 +1,156 @@
 import camion.*
+import cosas.*
 
 describe "group of test for camion" {
 
-  test "first test" {
-    assert.that(true)
-  }
+test "el peso total del camión" {
+  bumblebee.transformarse()
+  arenaGranel.peso(150)
+  bateriaAntiaerea.ponerMisiles()
+  ladrillos.establecerCantidad(80)
+  embalaje.envolver(ladrillos)
 
+  camion.cargar(bumblebee)
+  camion.cargar(arenaGranel)
+  camion.cargar(bateriaAntiaerea)
+  camion.cargar(embalaje)
+
+  assert.equals(1000 + 800 + 150 + 300 + 160, camion.pesoTotal())
+}
+
+test "tiene todos los pesos pares" {
+  bumblebee.transformarse()
+  arenaGranel.peso(150)
+  bateriaAntiaerea.ponerMisiles()
+  ladrillos.establecerCantidad(80)
+  embalaje.envolver(ladrillos)
+
+  camion.cargar(bumblebee)
+  camion.cargar(arenaGranel)
+  camion.cargar(bateriaAntiaerea)
+  camion.cargar(embalaje)
+
+  assert.that(camion.pesosPares())
+}
+
+test "tiene una cosa que pesa 150 kg" {
+  bumblebee.transformarse()
+  arenaGranel.peso(150)
+  bateriaAntiaerea.ponerMisiles()
+  ladrillos.establecerCantidad(80)
+  embalaje.envolver(ladrillos)
+
+  camion.cargar(bumblebee)
+  camion.cargar(arenaGranel)
+  camion.cargar(bateriaAntiaerea)
+  camion.cargar(embalaje)
+
+  assert.that(camion.tieneCosaConPeso(150))
+}
+
+test "la primera cosa con peligrosidad 100 es la batería" {
+  bumblebee.transformarse()
+  arenaGranel.peso(150)
+  bateriaAntiaerea.ponerMisiles()
+  ladrillos.establecerCantidad(80)
+  embalaje.envolver(ladrillos)
+
+  camion.cargar(bumblebee)
+  camion.cargar(arenaGranel)
+  camion.cargar(bateriaAntiaerea)
+  camion.cargar(embalaje)
+
+  assert.equals(bateriaAntiaerea, camion.primeraCosaConPeligrosidad(100))
+}
+
+test "cosas que superan peligrosidad 50" {
+  bumblebee.transformarse()
+  arenaGranel.peso(150)
+  bateriaAntiaerea.ponerMisiles()
+  ladrillos.establecerCantidad(80)
+  embalaje.envolver(ladrillos)
+
+  camion.cargar(bumblebee)
+  camion.cargar(arenaGranel)
+  camion.cargar(bateriaAntiaerea)
+  camion.cargar(embalaje)
+
+  assert.equals([bateriaAntiaerea], camion.cosasMuyPeligrosas(50))
+}
+
+test "cosas más peligrosas que los ladrillos" {
+  bumblebee.transformarse()
+  arenaGranel.peso(150)
+  bateriaAntiaerea.ponerMisiles()
+  ladrillos.establecerCantidad(80)
+  embalaje.envolver(ladrillos)
+
+  camion.cargar(bumblebee)
+  camion.cargar(arenaGranel)
+  camion.cargar(bateriaAntiaerea)
+  camion.cargar(embalaje)
+
+  assert.equals([bumblebee, bateriaAntiaerea], camion.cosasMasPeligrosasQue(ladrillos))
+
+}
+
+test "camión no está excedido" {
+  bumblebee.transformarse()
+  arenaGranel.peso(150)
+  bateriaAntiaerea.ponerMisiles()
+  ladrillos.establecerCantidad(80)
+  embalaje.envolver(ladrillos)
+
+  camion.cargar(bumblebee)
+  camion.cargar(arenaGranel)
+  camion.cargar(bateriaAntiaerea)
+  camion.cargar(embalaje)
+
+  assert.notThat(camion.estaExcedido())
+}
+
+test "puede circular con nivel máximo 100" {
+  bumblebee.transformarse()
+  arenaGranel.peso(150)
+  bateriaAntiaerea.ponerMisiles()
+  ladrillos.establecerCantidad(80)
+  embalaje.envolver(ladrillos)
+
+  camion.cargar(bumblebee)
+  camion.cargar(arenaGranel)
+  camion.cargar(bateriaAntiaerea)
+  camion.cargar(embalaje)
+
+  assert.that(camion.puedeCircular(100))
+}
+
+test "tiene algo que pesa entre 100 y 200" {
+  bumblebee.transformarse()
+  arenaGranel.peso(150)
+  bateriaAntiaerea.ponerMisiles()
+  ladrillos.establecerCantidad(80)
+  embalaje.envolver(ladrillos)
+
+  camion.cargar(bumblebee)
+  camion.cargar(arenaGranel)
+  camion.cargar(bateriaAntiaerea)
+  camion.cargar(embalaje)
+
+  assert.that(camion.tieneAlgoQuePesaEntre(100, 200))
+}
+
+test "la cosa más pesada es bumblebee" {
+  bumblebee.transformarse()
+  arenaGranel.peso(150)
+  bateriaAntiaerea.ponerMisiles()
+  ladrillos.establecerCantidad(80)
+  embalaje.envolver(ladrillos)
+
+  camion.cargar(bumblebee)
+  camion.cargar(arenaGranel)
+  camion.cargar(bateriaAntiaerea)
+  camion.cargar(embalaje)
+
+  assert.equals(bumblebee, camion.cosaMasPesada())
+}
 }
